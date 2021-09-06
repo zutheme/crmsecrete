@@ -1,0 +1,19 @@
+.nav-header .logo {
+	max-width:200px;
+}
+.nav-header img {
+	width:100%;
+	height:auto;
+}
+.header .header-left .dashboard_bar h1 {
+	font-size:18px;
+	font-weight:500;
+	text-transform: uppercase;
+}
+.breadcrumb li:nth-child(n+2)::before {
+    float: left;
+    padding-right: 0.5rem;
+	padding-left: 0.5rem;
+    color: #6c757d;
+    content: "/";
+}
