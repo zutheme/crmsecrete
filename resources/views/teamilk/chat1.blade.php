@@ -69,9 +69,10 @@
 
 
        <script>
+	   
             $(function() {
-                let ip_address = '172.0.0.1;
-                let socket_port = '6001';
+                let ip_address = 'https://ticmedi.tech';
+                let socket_port = '443';
                 let socket = io(ip_address + ':' + socket_port);
 				/*let socket = io.connect(ip_address, {secure: true});*/
 				/*let socket = io.connect(ip_address + ':' + socket_port);*/

@@ -92,8 +92,8 @@ Route::get('/admin/testdata', function () {
 });
 
 /*chat*/
-//Route::get('messages',array( 'uses' => 'ChatsController@fetchMessages' ));
-//Route::post('messages',array( 'uses' => 'ChatsController@sendMessage' ));
+Route::get('messages',array( 'uses' => 'ChatsController@fetchMessages' ));
+Route::post('messages',array( 'uses' => 'ChatsController@sendMessage' ));
 //Route::get('/chat/messages', ['uses' =>'ChatsController@fetchMessages', 'as'=>'admin']);
 //Route::post('/chat/messages', ['uses' =>'ChatsController@sendMessage', 'as'=>'admin']);
 //Broadcast::routes();
