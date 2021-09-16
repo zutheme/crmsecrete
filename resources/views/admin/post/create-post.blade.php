@@ -2,7 +2,6 @@
 			{{ csrf_field() }}
 			<div class="col-md-9 col-xs-12">
 				<div class="form-group">
-					{{-- <button type="button" onclick="pasteHtmlAtCaret(test)" value="addlink">insert link</button> --}}
 					@if(isset($idparent))
 						<a class="btn btn-default" href="{{ action('Admin\PostsController@edit',$idparent) }}">&nbsp;<i class="fa fa-angle-double-left"></i>&nbsp;Về sản phẩm chính</a>
 					@endif

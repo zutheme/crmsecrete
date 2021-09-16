@@ -199,10 +199,6 @@ function regform_api(){
     e_popup_processing.style.zIndex = "99999999999";
     var xhr = new XMLHttpRequest();
     var params = JSON.stringify({
-        "option": {
-          "spreadsheetid": _spreadsheetid,
-          "formspread": 1,
-        },
         "data": {
           "url": _host,
           "time": _date1 +":" +_date2,
@@ -215,7 +211,7 @@ function regform_api(){
         }
       });
     console.log(params);
-    var url = 'https://ticmedi.tech/api/customer/consultants';
+    var url = 'https://crm.secretenergy.net/sendMessageto';
     xhr.open("POST", url, true);
     xhr.withCredentials = true;
     xhr.setRequestHeader("Accept", "application/json");

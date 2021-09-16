@@ -21,14 +21,14 @@
 	  </div>
 	</div>
 	 
-	  <div class="form-group short_desc">
+	  <div class="form-group row short_desc">
 		<label class="control-label col-md-3 col-sm-3 col-xs-12">Mô tả vắn tắt</label>
 		<div class="col-md-12">
 		  <textarea id="shorteditor" name="short_desc" class="form-control" rows="3" cols="50" placeholder=""></textarea>
 		</div>
 	  </div>
 	  
-	<div class="form-group"> 
+	<div class="form-group row"> 
 		<div class="col-lg-12">                
 			<ul class="multi-file">
 				<li class="item0">	
@@ -42,28 +42,34 @@
 			<p><input type="button" style="display: none" class="btn btn-default btn-more-file" name="btn-more-file" value="Thêm file" /></p>
 		</div>
 	</div>
-	<div class="form-group">
+	<div class="form-group row">
 		<label class="control-label col-md-3 col-sm-3 col-xs-12">Keyword:</label>
 		<div class="col-md-9 col-sm-9 col-xs-12">
 		  <input type="text" name="keyword" class="form-control" />
 		</div>
 	  </div>
-	 <div class="form-group">
+	 <div class="form-group row">
 		<label class="control-label col-md-3 col-sm-3 col-xs-12">Link:</label>
 		<div class="col-md-9 col-sm-9 col-xs-12">
 		  <input type="text" name="link" class="form-control" />
 		</div>
 	  </div>
-		<div class="form-group">
+		<div class="form-group row">
 		<label class="control-label col-md-3 col-sm-3 col-xs-12">Feature:</label>
 		<div class="col-md-9 col-sm-9 col-xs-12">
 		  <input type="number" name="feature" class="form-control" />
 		</div>
 	  </div>
-	  <div class="form-group">
+	  <div class="form-group row">
 		<label class="control-label col-md-3 col-sm-3 col-xs-12">ID youtube:</label>
 		<div class="col-md-9 col-sm-9 col-xs-12">
 		  <input type="text" name="idyoutube" class="form-control" />
+		</div>
+	  </div>
+	   <div class="form-group row">
+		<label class="control-label col-md-3 col-sm-3 col-xs-12">difficult level (0-10):</label>
+		<div class="col-md-9 col-sm-9 col-xs-12">
+			<input type="number" name="difflevel" class="form-control" value="" min="0" max="10" />
 		</div>
 	  </div>
 	</div>

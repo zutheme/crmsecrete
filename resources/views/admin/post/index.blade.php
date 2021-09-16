@@ -10,6 +10,7 @@
     <link href="{{ asset('gentelella/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}" rel="stylesheet">
     <!-- Custom Theme Style -->
    {{--  <link href="{{ asset('gentelella/build/css/custom.min.css') }}" rel="stylesheet"> --}}
+   <link href="{{ asset('gentelella/build/css/custom.min.css') }}" rel="stylesheet">
 @stop
 @section('content')
 <?php 
@@ -93,6 +94,6 @@
 	<script src="{{ asset('public/js/library.js?v=0.4.6') }}"></script>
     <script src="{{ asset('dashboard/production/js/edit_update_category.js?v=0.0.8.9') }}"></script> 
     <script src="{{ asset('dashboard/production/js/interactive/select_category_tag.js?v=0.0.0.7') }}"></script>
-    <script src="{{ asset('gentelella/production/js/exam.js?v=0.0.1.4') }}"></script>
+    <script src="{{ asset('gentelella/production/js/exam.js?v=0.0.1.9') }}"></script>
 	
 @stop

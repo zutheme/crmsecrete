@@ -124,13 +124,12 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('public/riode/vendor/magnific-popup/magnific-popup.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('public/riode/vendor/owl-carousel/owl.carousel.min.css') }}">
 
-   
-	
 	<link href="{{ asset('public/css/main-style.css?v=0.3.8.0') }}" rel="stylesheet" type="text/css">
 	<link href="{{ asset('public/css/custom-product.css?v=0.3.8.0') }}" rel="stylesheet" type="text/css">
-	@if($template == 'home')
+	@if($template == 'home'||$template == 'chat')
 		 <!-- Main CSS File -->
 		<link rel="stylesheet" type="text/css" href="{{ asset('public/riode/css/demo-food.min.css?v=0.0.1') }}">
+		<link rel="stylesheet" type="text/css" href="{{ asset('public/css/style-chat.css?v=0.0.4') }}">
 	@endif
 	
    @yield('other_styles')
@@ -247,6 +246,7 @@
 	@include('teamilk.riode.menu-mobile')
 	@include('teamilk.riode.popup')
 	@include('teamilk.modal-cart')
+	@include('teamilk.riode.popup-process')
 	<script type="text/javascript">var url_home = '{{ url('/') }}';</script>
 	<!-- Plugins JS File -->
     <script src="{{ asset('public/riode/vendor/jquery/jquery.min.js') }}"></script>
@@ -262,10 +262,15 @@
 	@if($template == 'product')
 		 <script src="{{ asset('public/riode/vendor/sticky/sticky.min.js') }}"></script>
 		 <script src="{{ asset('public/riode/vendor/nouislider/nouislider.min.js') }}"></script>
+	@elseif($template == 'chat')
+		<!--<script src="https://cdn.socket.io/4.0.1/socket.io.min.js" integrity="sha384-LzhRnpGmQP+lOvWruF/lgkcqD+WDVt9fU3H4BWmwP5u5LTmkUGafMcpZKNObVMLU" crossorigin="anonymous"></script>-->
+		 <script src="https://cdn.socket.io/3.1.3/socket.io.min.js" integrity="sha384-cPwlPLvBTa3sKAgddT6krw0cJat7egBga3DJepJyrLl4Q9/5WLra3rrnMcyTyOnh" crossorigin="anonymous"></script>
+		<script src="{{ asset('public/js/client_node.js?v=0.4.7') }}"></script>
 	@endif
     @yield('other_scripts')
     </body>
 </html>
+
 
 
 

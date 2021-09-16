@@ -82,6 +82,10 @@ class ProductController extends Controller
 		
 		return view('teamilk.product.error-404',compact('rs_menu1','rs_menu2','rs_menu3','rs_you_foot', 'rs_logo_footer','rs_logo_header'));
 	}
+	 public function showhome(){
+		 $idproduct = 931;
+		 return $this->show($idproduct);
+	 }
 	//252
     public function show($idproduct=1092){
         $_namecattype="product";
@@ -102,12 +106,14 @@ class ProductController extends Controller
         }
         $qr_cat_product = DB::select('call ListAllCatByTypeProcedure(?)',array($_namecattype));
         $rs_cat_product = json_decode(json_encode($qr_cat_product), true); 
-        if($_namecattype == 'page' && $template == 'home'){
-           return $this->Home($product, $_namecattype, $rs_cat_product, $cate_selected);
+        if($_namecattype == 'page'){
+			if($template == 'home'||$template == 'chat'){
+				return $this->Home($product, $_namecattype, $rs_cat_product, $cate_selected);
+			}elseif($template == 'home-lesson'){
+				return $this->HomeLesson($product, $_namecattype, $rs_cat_product, $cate_selected);
+			}
         }
-		if($_namecattype == 'page' && $template == 'home-lesson'){
-           return $this->HomeLesson($product, $_namecattype, $rs_cat_product, $cate_selected);
-        }else if($_namecattype == 'video'){
+		if($_namecattype == 'video'){
             return $this->single_video($idproduct);
         }
         $qr_cateselected = DB::select('call SelCateSelectedProcedure(?)',array($idproduct));
@@ -950,7 +956,25 @@ class ProductController extends Controller
         $permissions = json_decode(json_encode($qr_permission), true);
         return $permissions;
     }
-     public function update_view($idproduct){
+	public function store_interactive($idproduct, $count, $nametypeinteract){
+         $iduser = Auth::id();
+         if(!isset($iduser)){
+            $iduser = 36;
+         }
+         $ipaddress = $this->get_client_ip();
+         if(!isset($nametypeinteract)){
+			 $nametypeinteract = 'view';
+		 }
+		 if(!isset($count)){
+			 $count = 1;
+		 }
+		 $ipaddress = $this->get_client_ip();
+         $qr_view = DB::select('call InsertInteractiveProcedure(?,?,?,?,?)',array($idproduct, $iduser, $ipaddress, $nametypeinteract, $count));
+		 $rs_view = json_decode(json_encode($qr_view), true);
+		 if(isset($rs_view) &&  isset($rs_view[0]) && $rs_view[0]['countview'] > 0) return true;
+		 else return false;
+    }
+    public function update_view($idproduct){
          $iduser = Auth::id();
          if(!isset($iduser)){
             $iduser = 36;
@@ -958,6 +982,7 @@ class ProductController extends Controller
          $ipaddress = $this->get_client_ip();
          $nametypeinteract ='view';
          $qr_view = DB::select('call UpdateviewProcedure(?,?,?,?)',array($idproduct, $iduser, $ipaddress, $nametypeinteract));
+		 $rs_view = json_decode(json_encode($qr_view), true);
 		 if(isset($rs_view) &&  isset($rs_view[0]) && $rs_view[0]['countview'] > 0) return true;
 		 else return false;
     }

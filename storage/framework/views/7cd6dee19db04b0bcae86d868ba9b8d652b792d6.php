@@ -132,12 +132,12 @@
 			<input style="display:none" type="file" name="thumbnail" class="file" id="file1" accept="image/*"/></p>
 			<p><canvas id="canvas_thumbnail" width="0px" height="0px"></canvas></p>
 		</div>
-			<div class="form-group row">
-				<label class="control-label col-md-3 col-sm-3 col-xs-12">template:</label>
-				<div class="col-md-9 col-sm-9 col-xs-12">
-				  <input type="text" name="template" class="form-control" value="<?php echo e($product[0]['template']); ?>" />
-				</div>
-			  </div>			
+		<div class="form-group row">
+			<label class="control-label col-md-3 col-sm-3 col-xs-12">template:</label>
+			<div class="col-md-9 col-sm-9 col-xs-12">
+			  <input type="text" name="template" class="form-control" value="<?php echo e($product[0]['template']); ?>" />
+			</div>
+		  </div>			
 		<div class="form-group row text-center">
 			<input type="submit" class="btn btn-default btn-primary btn-submit" name="btn-submit" value="Xác nhận" />
 		</div>

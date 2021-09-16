@@ -237,4 +237,5 @@ class ConsultantController extends Controller
         $message = "success ".$_list_idcat.'-'.$_id_post_type.'-'.$_id_status_type.'- last_id: '.$_last_id.', '.$report_more_can;
         return response()->json(array('error'=>0,'message'=>$message));
     }
+	
 }

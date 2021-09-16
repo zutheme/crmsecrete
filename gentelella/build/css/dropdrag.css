@@ -1,0 +1,70 @@
+.container-drop > div,
+.gu-mirror {
+  margin: 5px;
+  padding: 5px;
+  background-color: rgba(255, 255, 255, 0.9);
+  transition: opacity 0.4s ease-in-out;
+  height:40px;
+  width:100%;
+}
+.gu-unselectable .container-drop > div,
+.container-drop > div {
+	width:98.6%;
+}
+.gu-transit ul,
+.gu-mirror div ul.quiz,
+.gu-unselectable div ul.quiz,
+.container-drop div ul.quiz {
+	list-style:none;
+	width:100%;
+}
+.gu-unselectable div ul.quiz li,
+.container-drop div ul.quiz li {
+	width:10%;
+	float:left;
+}
+.gu-unselectable div ul.quiz li.title,
+.container-drop div ul.quiz li.title{
+	width:30%;
+	float:left;
+	margin: 0 0 4px 0;
+    display: -webkit-box;
+    max-width: 220px;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    -webkit-line-clamp: 3;
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 1.0rem;
+    border: none;
+    word-break: break-all;
+}
+.gu-unselectable div ul.quiz li.li-thumb,
+.container-drop div ul.quiz li.li-thumb{
+	padding:5px;
+	height:30px;
+	overflow:hidden;
+}
+.gu-unselectable div ul.quiz li img.img-thumb, 
+.container-drop div ul.quiz li img.img-thumb {
+    position:relative;
+	top:-7px;
+}
+.gu-unselectable div ul.quiz li.hidden,
+.container-drop div ul.quiz li.hidden{
+	display:none;
+}
+.gu-unselectable div ul.quiz li.category,
+.container-drop div ul.quiz li.category {
+	width:30%;
+	float:left;
+}
+.gu-unselectable div ul.quiz li img,
+.container-drop div ul.quiz li img {
+	width:100%;
+	height:auto;
+}
+
+

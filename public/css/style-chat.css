@@ -1,0 +1,28 @@
+.section-chat .chat-row {
+	margin: 50px;
+}
+
+
+.section-chat .chat-row ul {
+	 margin: 0;
+	 padding: 0;
+	 list-style: none;
+ }
+
+
+.section-chat .chat-row ul li {
+	 padding:8px;
+	 background: #928787;
+	 margin-bottom:20px;
+ }
+
+
+.section-chat .chat-row ul li:nth-child(2n-2) {
+	background: #c3c5c5;
+ }
+ 
+.section-chat input.control {
+	border:1px solid #ccc;
+	padding:5px;
+	height:40px;
+}

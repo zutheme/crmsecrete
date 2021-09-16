@@ -34,7 +34,7 @@
       <!-- Custom Theme Style -->
       <link href="{{ asset('gentelella/build/css/custom.min.css') }}" rel="stylesheet">
       <link href="{{ asset('gentelella/build/css/main-style.css?v=0.3.8.0') }}" rel="stylesheet" type="text/css">
-	  <link href="{{ asset('gentelella/build/css/custom-product.css?v=0.3.8.0') }}" rel="stylesheet" type="text/css">
+	  
 	  
         @yield('other_styles')
     </head>

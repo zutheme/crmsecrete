@@ -72,6 +72,7 @@ Route::get('/customer/consultants', 'API\ConsultantController@createconsultant')
 Route::get('/logout', 'Auth\AuthController@logout');
 Route::get('/user', 'Auth\AuthController@user');
 Route::post('/user', 'Auth\AuthController@user');
+
 // Route::group(['middleware' => 'auth:api'], function () {
 // 	Route::get('/logout/api', 'Auth\AuthController@logout');
 // 	Route::get('/user/api', 'Auth\AuthController@user');

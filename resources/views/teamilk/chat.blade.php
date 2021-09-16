@@ -33,15 +33,6 @@
              ul li:nth-child(2n-2) {
                 background: #c3c5c5;
              }
-
-
-             .chat-input {
-                 border: 1px soild lightgray;
-                 border-top-right-radius: 10px;
-                 border-top-left-radius: 10px;
-                 padding: 8px 10px;
-                 color:#fff;
-             }
         </style>
     </head>
     <body>
@@ -53,49 +44,12 @@
                       
                     </ul>
                 </div>
-
-                <div class="chat-section">
-                    <div class="chat-box">
-                        <div class="chat-input bg-primary" id="chatInput" contenteditable="">
-
-                        </div>
-                    </div>
-                </div>
+				<input class="control" id="chatInput" type="text">
             </div>
         </div>
 
         <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
         <script src="https://cdn.socket.io/4.0.1/socket.io.min.js" integrity="sha384-LzhRnpGmQP+lOvWruF/lgkcqD+WDVt9fU3H4BWmwP5u5LTmkUGafMcpZKNObVMLU" crossorigin="anonymous"></script>
-
-
-       <script>
-            $(function() {
-                let ip_address = '172.0.0.1;
-                let socket_port = '6001';
-                let socket = io(ip_address + ':' + socket_port);
-				/*let socket = io.connect(ip_address, {secure: true});*/
-				/*let socket = io.connect(ip_address + ':' + socket_port);*/
-				/*let socket = io(ip_address);*/
-				socket.on('connection');
-				// Client code
-                let chatInput = $('#chatInput');
-
-                chatInput.keypress(function(e) {
-                    let message = $(this).html();
-                    //console.log(message);
-                    if(e.which === 13 && !e.shiftKey) {
-						console.log(message);
-                        socket.emit('sendChatToServer', message);
-                        chatInput.html('');
-                        return false;
-                    }
-                });
-
-                socket.on('sendChatToClient', (message) => {
-					console.log(message);
-                    $('.chat-content ul').append(`<li>${message}</li>`);
-                });
-            });
-        </script>
+		<script src="{{ asset('public/js/client_node.js?v=0.0.7') }}"></script>
     </body>
 </html>

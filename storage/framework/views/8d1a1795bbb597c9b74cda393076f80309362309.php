@@ -10,6 +10,7 @@
     <link href="<?php echo e(asset('gentelella/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css')); ?>" rel="stylesheet">
     <!-- Custom Theme Style -->
    
+   <link href="<?php echo e(asset('gentelella/build/css/custom.min.css')); ?>" rel="stylesheet">
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('content'); ?>
 <?php 
@@ -93,7 +94,7 @@
 	<script src="<?php echo e(asset('public/js/library.js?v=0.4.6')); ?>"></script>
     <script src="<?php echo e(asset('dashboard/production/js/edit_update_category.js?v=0.0.8.9')); ?>"></script> 
     <script src="<?php echo e(asset('dashboard/production/js/interactive/select_category_tag.js?v=0.0.0.7')); ?>"></script>
-    <script src="<?php echo e(asset('gentelella/production/js/exam.js?v=0.0.1.4')); ?>"></script>
+    <script src="<?php echo e(asset('gentelella/production/js/exam.js?v=0.0.1.9')); ?>"></script>
 	
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('admin.general', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /home/crmenergy/domains/crm.secretenergy.net/public_html/resources/views/admin/post/index.blade.php ENDPATH**/ ?>

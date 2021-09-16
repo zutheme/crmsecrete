@@ -9,20 +9,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-use App\Events\WebsocketDemoEvent;
-use App\Events\RealTimeMessage;
 
-Route::get('/broadcast', function() {
-    //event(new App\Events\RealTimeMessage('Hello World'));
-    broadcast(new WebsocketDemoEvent("some data"));
-    return "broadcast has been sent!";
-});
-Route::get('/pusher', function() {
-    event(new RealTimeMessage('Hello World'));
-    return "Event has been sent!";
-});
 
-Route::get('/testchats', function() {
+Route::get('/testchat', function() {
     return view('teamilk.chat');
 });
 
@@ -33,7 +22,7 @@ Route::get('get/orderhistory', function() {
 });
 
 Route::get('test/log', 'API\CallVoipController@testlog');
-
+Route::get('/home' , ['uses' =>'teamilk\ProductController@showhome'] );
 /*-----------------Grabcall------------------------*/
 //Route::get('grabcall/webhook',"GrabCallController@getDataGrabCall")->name('grabcall.webhook');
 //Route::group(['middleware' => 'auth'], function() {
@@ -65,6 +54,8 @@ Route::get('/deletesession', function () {
 //Route::get('/sitemap.xml/questions', 'SitemapController@questions');
 //Route::get('/sitemap.xml/tags', 'SitemapController@tags');
 //end sitemap
+
+
 Route::get('/admin/testdata', function () {
         $totalSegsCount = count(\Request::segments());
         $url = '';
@@ -96,6 +87,8 @@ Route::get('messages',array( 'uses' => 'ChatsController@fetchMessages' ));
 Route::post('messages',array( 'uses' => 'ChatsController@sendMessage' ));
 //Route::get('/chat/messages', ['uses' =>'ChatsController@fetchMessages', 'as'=>'admin']);
 //Route::post('/chat/messages', ['uses' =>'ChatsController@sendMessage', 'as'=>'admin']);
+Route::post('sendMessageto',['uses' =>'socketController@sendMessage']);
+Route::get('sendMessageto',['uses' =>'socketController@sendMessage']);
 //Broadcast::routes();
 Broadcast::routes(['middleware' => ['auth:api']]);
 Auth::routes();
@@ -204,7 +197,12 @@ Route::get('profile/{_iduser}', function () {
 Route::post('ckeditor/upload', 'CKEditorController@uploadDataULR')->name('ckeditor.upload');
 //Route::group(['prefix' => 'admin',  'middleware' => 'auth'], function()
 Route::get('plain', 'teamilk\ProductController@plain');
+
+
+
 Route::group(['middleware' => 'auth'], function() {
+	Route::get('admin/sortquiz', array('uses' =>'Admin\PostsController@sortquiz'));
+	Route::post('admin/sortquiz', array('uses' =>'Admin\PostsController@sortquiz'));
 	/*plain*/
 	Route::get('admin/insertlessontoexam', ['uses' =>'Admin\PostsController@insertlessontoexam', 'as'=>'Admin']);
 	Route::post('admin/insertlessontoexam', ['uses' =>'Admin\PostsController@insertlessontoexam', 'as'=>'Admin']);

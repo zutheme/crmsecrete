@@ -32,7 +32,7 @@ function addquiz( _iduser, _idexam, _idproduct, _idcrosstype){
             e_popup_processing.getElementsByClassName("loading")[0].style.display ="none";
             e_popup_processing.getElementsByClassName('processing')[0].style.backgroundColor="white"; 
             if(data.error == 0){
-                e_popup_processing.getElementsByClassName('result')[0].innerHTML = data.result;
+                e_popup_processing.getElementsByClassName('result')[0].innerHTML = data.result+'</br>'+data.idimp+'</br>'+data.idcode;
                 e_popup_processing.getElementsByClassName('checked-img')[0].style.display ="block";
             }else {
                 e_popup_processing.getElementsByClassName('result')[0].innerHTML = data.result;
@@ -40,7 +40,7 @@ function addquiz( _iduser, _idexam, _idproduct, _idcrosstype){
             }
             
             setTimeout(function(){
-				console.log(e_popup_processing);
+				//console.log(e_popup_processing);
                 e_popup_processing.style.display ='none';
               },3000);  
         }
@@ -49,3 +49,4 @@ function addquiz( _iduser, _idexam, _idproduct, _idcrosstype){
     console.log("request sent to the server");
 
 }
+

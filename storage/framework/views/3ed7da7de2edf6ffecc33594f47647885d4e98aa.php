@@ -1,4 +1,9 @@
 <!--table-->
+<?php 
+	$parent = 0;
+	if(isset($product[0]['idproduct'])){
+	$parent = $product[0]['idproduct'];
+} ?>
 <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%"> 
 	<thead>
 
@@ -44,7 +49,7 @@
 			<td><?php echo e($row['author']); ?></td>
 			<td><img class="thumb" src="<?php echo e(asset($row['urlfile'])); ?>"></td>
 			<td class="btn-control-action">
-			  <a href="<?php echo e(action('Admin\PostsController@edit',$row['idproduct'])); ?>" class="info-number"><i class="fa fa-pencil-square"></i></a>
+			  <a href="<?php echo e(action('Admin\PostsController@edit',[$row['idproduct'],'idparent'=>$parent])); ?>" class="info-number"><i class="fa fa-pencil-square"></i></a>
 			</td>
 		  </tr>
 		  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>  

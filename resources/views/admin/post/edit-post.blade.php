@@ -1,4 +1,13 @@
-<h2>Chỉnh sửa</h2>
+<div class="col-md-12 col-xs-12">
+	<h2>Chỉnh sửa</h2>
+	@if(\Session::has('errors'))
+		<div class="row">
+			<div class="alert alert-success">
+				{{ $errors }}
+			</div>
+		</div>
+	@endif
+</div>
 <form class="frm_edit_post" method="post" action="{{ action('Admin\PostsController@update',$idproduct) }}" enctype="multipart/form-data">
 		{{ csrf_field() }}
 		<input type="hidden" name="_method" value="PATCH">

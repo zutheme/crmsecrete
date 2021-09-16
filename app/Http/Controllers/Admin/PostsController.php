@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -892,7 +891,21 @@ class PostsController extends Controller
 			}elseif($_id_post_type == 1 || $_id_post_type == 4 || $_id_post_type == 5 || $_id_post_type == 6 || $_id_post_type == 7 || $_id_post_type == 23 || $_id_post_type == 28){
 				$qr_insertproduct = DB::select('call InitImportCustomPostProcedure(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',array($idproduct, $_idcustomer, $_iduser, $_idcrosstype, $_idparent, $_amount, $_price_import, $_price, $_quality_sale, $_note, $_idstore, $_axis_x, $_axis_y, $_axis_z, $_id_status_type, $_catnametype, $_prev_id, $idclient));
                 $rs_insertproduct = json_decode(json_encode($qr_insertproduct), true);
-			}else{
+			}elseif($_id_post_type == 29){
+				$qr_insertproduct = DB::select('call InitImportCustomPostProcedure(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',array($idproduct, $_idcustomer, $_iduser, $_idcrosstype, $_idparent, $_amount, $_price_import, $_price, $_quality_sale, $_note, $_idstore, $_axis_x, $_axis_y, $_axis_z, $_id_status_type, $_catnametype, $_prev_id, $idclient));
+                $rs_insertproduct = json_decode(json_encode($qr_insertproduct), true);
+				 $_difflevel = $request->get('difflevel');
+				 if(!isset($_difflevel)){
+					 $_difflevel = 0;
+				 }
+				 if($_difflevel < 11 && $_difflevel > -1 ){
+					$nametypeinteract = 'difflevel';
+					$ipaddress = $this->get_client_ip();
+					$qr_view = DB::select('call InsertInteractiveProcedure(?,?,?,?,?)',array($idproduct, $_iduser, $ipaddress, $nametypeinteract, $_difflevel));
+					$rs_view = json_decode(json_encode($qr_view), true);
+				 }
+			}
+			else{
 				$_shortname = 'import';
 				if( $_idcrosstype > 0 && $_idparent > 0){
 					//$insertproduct = DB::select('call ImportByCrossParentProcedure(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',array($idproduct, $_idcustomer, $_iduser, $_idcrosstype, $_idparent, $_amount, $_price_import, $_price_sale, $_quality_sale, $_note, $_axis_x, $_axis_y, $_axis_z, $_id_status_type, $_catnametype, $_shortname ));
@@ -933,16 +946,34 @@ class PostsController extends Controller
 		//return response()->json(array('error'=>0,'result'=>$_idcrosstype.','.$_idparent.','.$_idproduct.','.$_iduser));
 		if( $_idcrosstype > 0 && $_idparent > 0 && $_idproduct > 0 && $_iduser > 0 ){
 			try {
-				$qr_insertlesson = DB::select('call ImportByCrossTypeParentProcedure(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',array($_idproduct, $_idcustomer, $_iduser, $_idcrosstype, $_idparent, $_amount, $_price_import, $_price_sale, $_quality_sale, $_note, $_axis_x, $_axis_y, $_axis_z, $_id_status_type, $_catnametype, $_idstore ));
+				$typepostparent = 'exam';
+				//$qr_insertlesson = DB::select('call ImportByCrossTypeParentProcedure(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',array($_idproduct, $_idcustomer, $_iduser, $_idcrosstype, $_idparent, $_amount, $_price_import, $_price_sale, $_quality_sale, $_note, $_axis_x, $_axis_y, $_axis_z, $_id_status_type, $_catnametype, $_idstore ));
+				$qr_insertlesson = DB::select('call ImportByCrossTypeParentTypePostProcedure(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',array($_idproduct, $_idcustomer, $_iduser, $_idcrosstype, $_idparent, $_amount, $_price_import, $_price_sale, $_quality_sale, $_note, $_axis_x, $_axis_y, $_axis_z, $_id_status_type, $_catnametype, $_idstore, $typepostparent ));
 				$rs_insertlesson = json_decode(json_encode($qr_insertlesson));
 				if(isset($rs_insertlesson)){
 					foreach($rs_insertlesson as $row){
 						$_idimp = $row->idimp;
-						if(isset($_idimp) && $_idimp > 0){
-							$rs = array('error'=>0,'result'=>'success');
+						$_iderror = $row->iderror;
+						$_idcode = $row->idcode;
+						$_idimp = (int)$_idimp;
+						if(isset($_iderror) && $_iderror == 0){
+							/*difflevel*/
+							$nametypeinteract = 'difflevel';
+							$_difflevel = 0;
+							$ipaddress = $this->get_client_ip();
+							$qr_view = DB::select('call InsertInteractiveProcedure(?,?,?,?,?)',array($_idproduct, $_iduser, $ipaddress, $nametypeinteract, $_difflevel));
+							$rs_view = json_decode(json_encode($qr_view), true);
+							/*end difflevel*/
+							$rs = array('error'=>0,'result'=>'success','idimp'=>$_idimp,'idcode'=>$_idcode);     
 							return response()->json($rs);
-						}else{
-							$rs = array('error'=>0,'result'=>'Cau hoi da ton tai trong ma de: '.$_idparent);     
+						}elseif(isset($_iderror) && $_iderror == 1){
+							$rs = array('error'=>0,'result'=>'kieu post khong ton tai','idimp'=>$_idimp,'idcode'=>$_idcode);     
+							return response()->json($rs);
+						}elseif(isset($_iderror) && $_iderror == 2){
+							$rs = array('error'=>0,'result'=>'ma de: '.$_idparent.' khong ton tai','idimp'=>$_idimp,'idcode'=>$_idcode);    
+							return response()->json($rs);
+						}elseif(isset($_iderror) && $_iderror == 3){
+							$rs = array('error'=>0,'result'=>'Cau hoi da ton tai trong ma de: '.$_idparent,'idimp'=>$_idimp,'idcode'=>$_idcode);     
 							return response()->json($rs);
 						}
 					}
@@ -1057,6 +1088,7 @@ class PostsController extends Controller
         $_posttype ="post";
         $_idstore = 31;
 		$_id_post_type = 3;
+		$_iduser = Auth::id();
         $qr_cateselected = DB::select('call SelCateSelectedProcedure(?)',array($idproduct));
         $cate_selected = json_decode(json_encode($qr_cateselected), true);  
         //$statustypes = status_type::all()->toArray();
@@ -1072,7 +1104,7 @@ class PostsController extends Controller
         $qr_product = DB::select('call EditDetailPhoneByIdcrosstypeProcedure(?,?)',array($idproduct, $idcrosstype));
         $product = json_decode(json_encode($qr_product), true);
         //if(isset($product) && isset($product[0]['id_status_type']) == 5){
-        if(isset($product)){
+        if(isset($product) && isset($product[0]['nametype'])){
             $_posttype = $product[0]['nametype'];
             $_namecattype = $_posttype;
             $_id_post_type = $product[0]['id_post_type'];
@@ -1132,6 +1164,7 @@ class PostsController extends Controller
 		$rs_report = array();
 		$rs_consultant = array();
 		$rs_quiz = array();
+		$rs_diff = array();
 		if($_id_post_type==22){
 			$qr_phone = DB::select('call ListTypeInteractiveProcedure(?,?,?)', array($idproduct, 6, 'phone'));
 			$rs_phone = json_decode(json_encode($qr_phone), true);
@@ -1153,8 +1186,20 @@ class PostsController extends Controller
 			
 			$qr_consultant = DB::select('call ListTypeInteractiveProcedure(?,?,?)', array($idproduct, 6, 'consultant'));
 			$rs_consultant = json_decode(json_encode($qr_consultant), true);
-		}else if($_id_post_type==30){
-			$rq_quiz = DB::select('call ListPostByCrossTypeProcedure(?,?)', array($idproduct, 7));
+		}elseif($_id_post_type == 29){
+				$ipaddress = $this->get_client_ip();
+				$nametypeinteract = 'difflevel';
+				 try{
+					$qr_diff = DB::select('call CountInteractiveProcedure(?,?,?)',array($idproduct, $_iduser, $nametypeinteract ));
+					$rs_diff = json_decode(json_encode($qr_diff), true);
+					} catch (\Illuminate\Database\QueryException $ex) {
+						$errors = new MessageBag(['error' => $ex->getMessage()]);
+						return redirect()->back()->withInput()->withErrors($errors);
+					}
+		}
+		else if($_id_post_type==30){
+			//$rq_quiz = DB::select('call ListPostByCrossTypeProcedure(?,?)', array($idproduct, 7));
+			$rq_quiz = DB::select('call ListQuizByCrossTypeProcedure(?,?,?,?)', array($idproduct, 7, 4, 4));
 			$rs_quiz = json_decode(json_encode($rq_quiz), true);
 		}
         
@@ -1169,8 +1214,8 @@ class PostsController extends Controller
 		}
         $qr_store = DB::select('call ListParentStoreByTypeProcedure(?,?)',array('store', $_posttype));
         $rs_store = json_decode(json_encode($qr_store), true);
-
-        return view('admin.post.edit',compact('rs_quiz','rs_store','rs_status_process','rs_consultant','gallery','product','posttypes','categories','statustypes','str','idproduct','sel_cross_byidproduct','sel_parent_cross_product','sel_cross_type','rs_sel_impbyidpro','_id_post_type','_posttype','idparent','rs_phone','rs_sms','rs_email','rs_booking','rs_scan','rs_report','rs_catetags','rs_tags','rs_store'))->with('success','updated');
+		
+        return view('admin.post.edit',compact('rs_diff','rs_quiz','rs_store','rs_status_process','rs_consultant','gallery','product','posttypes','categories','statustypes','str','idproduct','sel_cross_byidproduct','sel_parent_cross_product','sel_cross_type','rs_sel_impbyidpro','_id_post_type','_posttype','idparent','rs_phone','rs_sms','rs_email','rs_booking','rs_scan','rs_report','rs_catetags','rs_tags','rs_store'))->with('success',$idparent);
     }
 	
     /**
@@ -1194,6 +1239,7 @@ class PostsController extends Controller
             if(!isset($_idparent)){
                 $_idparent = 0;
             }
+			//return redirect()->action('Admin\PostsController@edit',$idproduct)->with('success',$_idparent);
             $_id_post_type = $request->idposttype;
             if(!isset($_id_post_type)){
                 $_id_post_type = 0;
@@ -1425,15 +1471,34 @@ class PostsController extends Controller
                 /*end update*/
                 $str_client = ', '.$_firstname.','.$_middlename.','.$_lastname.','.$_email.','.$_address.','.$_sex.','.$_birthday;
             }
-            
-        $message = "update ".$_id_post_type.'-'.$exit_slug.', tag:'.$strtag.','.$str_client.',idstatusprocess:'.$_idstatusprocess;
-		if($_idparent > 0 && $_idcrosstype > 0 ){
+         if($_id_post_type == 29){
+				 $_difflevel = $request->get('difflevel');
+				 $idinteractive = $request->get('idinteractive');
+				 if(!isset($_difflevel)){
+					 $_difflevel = 0;
+				 }
+				 if(isset($_difflevel) && $_difflevel < 11 && $_difflevel > -1 ){
+					$nametypeinteract = 'difflevel';
+					$ipaddress = $this->get_client_ip();
+					$_iduser = Auth::id();
+					if($idinteractive > 0){
+						$qr_update_int = DB::select('call UpdateInteractiveProcedure(?,?,?)',array($idinteractive, $_difflevel, $ipaddress));
+						$rs_update_int = json_decode(json_encode($qr_update_int), true);
+					}else{
+						$qr_view = DB::select('call InsertInteractiveProcedure(?,?,?,?,?)',array($idproduct, $_iduser, $ipaddress, $nametypeinteract, $_difflevel));
+						$rs_view = json_decode(json_encode($qr_view), true);
+					}
+				 }
+			}  
+        $message = "_idparent=".$_idparent." update ".$_id_post_type.'-'.$exit_slug.', tag:'.$strtag.','.$str_client.',idstatusprocess:'.$_idstatusprocess;
+		if($_idparent > 0 && $_id_post_type > 0 && $_idcrosstype > 0 ){
 			return redirect()->action('Admin\PostsController@edit',[$idproduct, 'idposttype' => $_id_post_type,'idparent' => $_idparent, 'idcrosstype' => $_idcrosstype])->with('success',$message);
-		}elseif($_id_post_type > 0){
-			return redirect()->action('Admin\PostsController@edit',[$idproduct, 'idposttype' => $_id_post_type])->with('success',$message);
-        }else{
-			return redirect()->action('Admin\PostsController@edit',$idproduct)->with('success',$message);
 		}
+		if($_idparent > 0){
+			return redirect()->action('Admin\PostsController@edit',[$idproduct, 'idparent' => $_idparent])->with('success',$message);
+		}
+		return redirect()->action('Admin\PostsController@edit',$idproduct)->with('success',$message);
+
     }
 
     /**
@@ -1987,5 +2052,46 @@ class PostsController extends Controller
             }
             $this->main_child .= '</ul>';
         }
+    }
+	public function get_client_ip() {
+        $ipaddress = '';
+        if (isset($_SERVER['HTTP_CLIENT_IP']))
+            $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
+        else if(isset($_SERVER['HTTP_X_FORWARDED_FOR']))
+            $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        else if(isset($_SERVER['HTTP_X_FORWARDED']))
+            $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
+        else if(isset($_SERVER['HTTP_FORWARDED_FOR']))
+            $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
+        else if(isset($_SERVER['HTTP_FORWARDED']))
+            $ipaddress = $_SERVER['HTTP_FORWARDED'];
+        else if(isset($_SERVER['REMOTE_ADDR']))
+            $ipaddress = $_SERVER['REMOTE_ADDR'];
+        else
+            $ipaddress = 'UNKNOWN';
+        return $ipaddress;
+    }
+	public function sortquiz(Request $request) {
+        $input = json_decode(file_get_contents('php://input'),true);
+		$result = 0;
+		$str = '';
+		$data = $input['data'];
+		foreach($data as $row){
+			$_idimp = $row['idimp'];
+			$_order = $row['orders'];
+			$str .= "(".$_idimp.",".$_order."),";
+		}
+		$str = rtrim($str, ", ");
+		try {
+			$qr_update_order = DB::select('call update_order_quiz(?)',array($str));
+			$rs_update_order = json_decode(json_encode($qr_update_order), true);
+			if(isset($rs_update_order) && isset($rs_update_order[0]['result'])){
+				$result = $rs_update_order[0]['result'];
+			}
+		}catch (\Illuminate\Database\QueryException $ex) {
+            $errors = new MessageBag(['error' => $ex->getMessage()]);
+            return response()->json(array('error'=>1,'desc'=>$errors));
+        }
+		return response()->json(array('error'=>0,'desc'=>'success'));
     }
 }

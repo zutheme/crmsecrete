@@ -1,11 +1,17 @@
 <?php 
-	$_idposttype = app('request')->input('idposttype');
-	$_idparent = app('request')->input('idparent'); 
-	$_idcrosstype = app('request')->input('idcrosstype');
-	//echo $idposttype.', '.$idparent.', '.$idcrosstype. ', '.$idproduct."<br>";
+	$idparent = app('request')->input('idparent');
 ?>
-<h2>Chỉnh sửa</h2>
-<form class="frm_edit_post" method="post" action="{{ action('Admin\PostsController@update',$idproduct) }}" enctype="multipart/form-data">
+<div class="col-md-12 col-xs-12">
+	<h2>Chỉnh sửa</h2>
+	@if(\Session::has('errors'))
+		<div class="row">
+			<div class="alert alert-success">
+				{{ $errors }}
+			</div>
+		</div>
+	@endif
+</div>
+<form class="frm_edit_post" method="post" action="{{ action('Admin\PostsController@update',[$idproduct,'idparent'=>$idparent]) }}" enctype="multipart/form-data">
 	{{ csrf_field() }}
 	<input type="hidden" name="_method" value="PATCH">
 	<input type="hidden" name="idimp" value="{{ $product[0]['idimp'] }}">
@@ -84,7 +90,19 @@
 		  <input type="text" name="idyoutube" class="form-control" value="{{ $product[0]['idyoutube'] }}" />
 		</div>
 	  </div>
-		  
+	   <div class="form-group row">
+		<label class="control-label col-md-3 col-sm-3 col-xs-12">difficult level (0-10):</label>
+		<div class="col-md-9 col-sm-9 col-xs-12">
+			@if(isset($rs_diff) and isset($rs_diff[0]['idinteractive']))
+				<input type="hidden" name = "idinteractive" value="{{ $rs_diff[0]['idinteractive'] }}" />
+			@endif
+			@if(isset($rs_diff) and isset($rs_diff[0]['difflevel']))
+				<input type="number" name="difflevel" class="form-control" value="{{ $rs_diff[0]['difflevel'] }}" min="0" max="10" />
+			@else
+				<input type="number" name="difflevel" class="form-control" value="" min="0" max="10" />
+			@endif
+		</div>
+	  </div>
 	 
 		<!--extend atribute-->
 	  <div class="ln_solid"></div>

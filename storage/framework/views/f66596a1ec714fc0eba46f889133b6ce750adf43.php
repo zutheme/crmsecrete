@@ -27,7 +27,8 @@
 	</style> 
 	 <link href="<?php echo e(asset('gentelella/build/css/custom-quiz.css?v=0.0.2')); ?>" rel="stylesheet">
 	 <link href="<?php echo e(asset('node_modules/dragula/dist/dragula.css')); ?>" rel='stylesheet' type='text/css' />
-	 <link href="<?php echo e(asset('node_modules/dragula/example/example.css?v=0.0.3')); ?>" rel='stylesheet' type='text/css' />
+	 <link href="<?php echo e(asset('node_modules/dragula/example/example.css?v=0.4.5')); ?>" rel='stylesheet' type='text/css' />
+	 <link href="<?php echo e(asset('gentelella/build/css/dropdrag.css?v=0.1.2.2')); ?>" rel="stylesheet" type="text/css">
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('content'); ?>
 
@@ -122,8 +123,8 @@
     <script src="<?php echo e(asset('dashboard/production/js/filter_create_category.js?v=0.2.8')); ?>"></script> 
     <script src="<?php echo e(asset('dashboard/production/js/edit_update_category.js?v=0.0.9.4')); ?>"></script> 
     <script src="<?php echo e(asset('dashboard/production/js/interactive/select_category_tag.js?v=0.0.0.8')); ?>"></script>
-	<script src="<?php echo e(asset('gentelella/production/js/custom-quiz.js?v=0.0.0.6')); ?>"></script>
-	<script src="<?php echo e(asset('node_modules/dragula/dist/dragula.js?v=0.0.3')); ?>"></script>
-	<script src="<?php echo e(asset('node_modules/dragula/example/example.min.js?v=0.0.1')); ?>"></script>
+	<script src="<?php echo e(asset('gentelella/production/js/custom-quiz.js?v=0.0.7.3')); ?>"></script>
+	<script src="<?php echo e(asset('node_modules/dragula/dist/dragula.js?v=0.0.5')); ?>"></script>
+	<script src="<?php echo e(asset('node_modules/dragula/example/example.min.js?v=0.0.3')); ?>"></script>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('admin.general', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /home/crmenergy/domains/crm.secretenergy.net/public_html/resources/views/admin/post/edit.blade.php ENDPATH**/ ?>
