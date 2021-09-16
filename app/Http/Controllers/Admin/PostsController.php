@@ -2099,7 +2099,7 @@ class PostsController extends Controller
 		$idimp = $input['idimp'];
 		$idstatustype = $input['idstatustype'];
 		try {
-			$qr_trash_quiz = DB::select('call trash_quiz(?,?)',array($idimp, $idstatustype));
+			$qr_trash_quiz = DB::select('call trashquiz(?,?)',array($idimp, $idstatustype));
 			$rs_trash_quiz = json_decode(json_encode($qr_trash_quiz), true);
 			if(isset($rs_update_order) && isset($rs_update_order[0]['result'])){
 				$result = $rs_update_order[0]['result'];

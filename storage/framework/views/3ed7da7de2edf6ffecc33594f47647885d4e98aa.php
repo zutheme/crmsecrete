@@ -54,7 +54,7 @@
 			  <a href="<?php echo e(action('Admin\PostsController@edit',[$row['idproduct'],'idparent'=>$parent])); ?>" class="info-number"><i class="fa fa-pencil-square"></i></a>
 			</td>
 			<td class="btn-control-action">
-			  <a href="javascript:void(0);" class="info-number"><i class="fa fa-trash" aria-hidden="true"></i></a>
+			  <a href="javascript:void(0);" onclick="trashquiz(<?php echo e($row['idimp']); ?>)" class="info-number" idimp="<?php echo e($row['idimp']); ?>" idstatustype="<?php echo e($row['id_status_type']); ?>"><i class="fa fa-trash" aria-hidden="true"></i></a>
 			</td>
 		  </tr>
 		  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>  
