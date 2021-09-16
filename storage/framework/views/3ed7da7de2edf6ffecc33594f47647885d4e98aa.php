@@ -17,6 +17,7 @@
 				<th>Người đăng</th>
 				<th>Hình ảnh</th>
 				<th>-</th>
+				<th>-</th>
 			 </tr>
 
 		 </thead>
@@ -32,6 +33,7 @@
 				<th>Ngày</th>
 				<th>Người đăng</th>
 				<th>Hình ảnh</th>
+				<th>-</th>
 				<th>-</th>
 			 </tr>
 
@@ -50,6 +52,9 @@
 			<td><img class="thumb" src="<?php echo e(asset($row['urlfile'])); ?>"></td>
 			<td class="btn-control-action">
 			  <a href="<?php echo e(action('Admin\PostsController@edit',[$row['idproduct'],'idparent'=>$parent])); ?>" class="info-number"><i class="fa fa-pencil-square"></i></a>
+			</td>
+			<td class="btn-control-action">
+			  <a href="javascript:void(0);" class="info-number"><i class="fa fa-trash" aria-hidden="true"></i></a>
 			</td>
 		  </tr>
 		  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>  

@@ -70,3 +70,44 @@ function sort_data(list){
     xhr.send(params);
     console.log("request sent to the server");
 }
+function trashquiz(_idimp){
+	var _csrf_token = document.getElementsByName("csrf-token")[0].getAttribute("content");
+    var xhr = new XMLHttpRequest();
+    var url = url_home+"/admin/trashquiz";
+	  //console.log(list);
+	  var params = JSON.stringify({
+        "idimp": _idimp,"idstatustype": 5,
+      });
+	console.log(params);
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("X-CSRF-TOKEN", _csrf_token);
+    xhr.setRequestHeader("Accept", "application/json");
+    xhr.setRequestHeader('Content-Type', 'application/json');
+  
+	var e_popup_processing = document.getElementsByClassName('htz-popup-processing')[0];
+    e_popup_processing.style.display ='block';
+    e_popup_processing.style.zIndex = "99999999999";
+	
+    xhr.onreadystatechange = function() {
+        if(xhr.readyState == 4 && xhr.status == 200) {
+        	var data = JSON.parse(xhr.responseText);
+            console.log(data);
+            e_popup_processing.getElementsByClassName('result')[0].style.paddingTop = "25%";
+            e_popup_processing.getElementsByClassName("loading")[0].style.display ="none";
+            e_popup_processing.getElementsByClassName('processing')[0].style.backgroundColor="white"; 
+            if(data.error == 0){
+                e_popup_processing.getElementsByClassName('result')[0].innerHTML = data.desc;
+                e_popup_processing.getElementsByClassName('checked-img')[0].style.display ="block";
+            }else {
+                e_popup_processing.getElementsByClassName('result')[0].innerHTML = data.desc;
+                //e_popup_processing.getElementsByClassName('checked-img')[0].style.display ="none";
+            }
+            setTimeout(function(){
+                e_popup_processing.style.display ='none';
+				location.reload();
+              },3000);  
+        }
+    }
+    xhr.send(params);
+    console.log("request sent to the server");
+}

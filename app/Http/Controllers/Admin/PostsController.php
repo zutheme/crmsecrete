@@ -2094,4 +2094,20 @@ class PostsController extends Controller
         }
 		return response()->json(array('error'=>0,'desc'=>'success'));
     }
+	public function trashquiz(Request $request) {
+        $input = json_decode(file_get_contents('php://input'),true);
+		$idimp = $input['idimp'];
+		$idstatustype = $input['idstatustype'];
+		try {
+			$qr_trash_quiz = DB::select('call trash_quiz(?,?)',array($idimp, $idstatustype));
+			$rs_trash_quiz = json_decode(json_encode($qr_trash_quiz), true);
+			if(isset($rs_update_order) && isset($rs_update_order[0]['result'])){
+				$result = $rs_update_order[0]['result'];
+			}
+		}catch (\Illuminate\Database\QueryException $ex) {
+            $errors = new MessageBag(['error' => $ex->getMessage()]);
+            return response()->json(array('error'=>1,'desc'=>$errors));
+        }
+		return response()->json(array('error'=>0,'desc'=>'success'));
+    }
 }

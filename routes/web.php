@@ -198,9 +198,10 @@ Route::post('ckeditor/upload', 'CKEditorController@uploadDataULR')->name('ckedit
 //Route::group(['prefix' => 'admin',  'middleware' => 'auth'], function()
 Route::get('plain', 'teamilk\ProductController@plain');
 
-
-
 Route::group(['middleware' => 'auth'], function() {
+	Route::get('admin/trashquiz', array('uses' =>'Admin\PostsController@trashquiz'));
+	Route::post('admin/trashquiz', array('uses' =>'Admin\PostsController@trashquiz'));
+	
 	Route::get('admin/sortquiz', array('uses' =>'Admin\PostsController@sortquiz'));
 	Route::post('admin/sortquiz', array('uses' =>'Admin\PostsController@sortquiz'));
 	/*plain*/

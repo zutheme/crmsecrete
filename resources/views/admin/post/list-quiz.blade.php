@@ -54,7 +54,7 @@
 			  <a href="{{ action('Admin\PostsController@edit',[$row['idproduct'],'idparent'=>$parent]) }}" class="info-number"><i class="fa fa-pencil-square"></i></a>
 			</td>
 			<td class="btn-control-action">
-			  <a href="{{ action('Admin\PostsController@edit',[$row['idproduct'],'idparent'=>$parent]) }}" class="info-number"><i class="fa fa-pencil-square"></i></a>
+			  <a href="javascript:void(0);" onclick="trashquiz({{ $row['idimp'] }})" class="info-number" idimp="{{ $row['idimp'] }}" idstatustype="{{ $row['id_status_type'] }}"><i class="fa fa-trash" aria-hidden="true"></i></a>
 			</td>
 		  </tr>
 		  @endforeach  
