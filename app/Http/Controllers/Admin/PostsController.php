@@ -1215,6 +1215,9 @@ class PostsController extends Controller
         $qr_store = DB::select('call ListParentStoreByTypeProcedure(?,?)',array('store', $_posttype));
         $rs_store = json_decode(json_encode($qr_store), true);
 		
+		$qr_attribute = DB::select('call ListAttributeByTypeProcedure(?,?)',array($idproduct, $_posttype));
+        $rs_attribute = json_decode(json_encode($qr_attribute), true)
+		
         return view('admin.post.edit',compact('rs_diff','rs_quiz','rs_store','rs_status_process','rs_consultant','gallery','product','posttypes','categories','statustypes','str','idproduct','sel_cross_byidproduct','sel_parent_cross_product','sel_cross_type','rs_sel_impbyidpro','_id_post_type','_posttype','idparent','rs_phone','rs_sms','rs_email','rs_booking','rs_scan','rs_report','rs_catetags','rs_tags','rs_store'))->with('success',$idparent);
     }
 	

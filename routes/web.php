@@ -199,6 +199,10 @@ Route::post('ckeditor/upload', 'CKEditorController@uploadDataULR')->name('ckedit
 Route::get('plain', 'teamilk\ProductController@plain');
 
 Route::group(['middleware' => 'auth'], function() {
+	
+	
+	Route::resource('admin/attribute' , 'Admin\AttributeController', array('as'=>'admin') );
+	
 	Route::get('admin/trashquiz', array('uses' =>'Admin\PostsController@trashquiz'));
 	Route::post('admin/trashquiz', array('uses' =>'Admin\PostsController@trashquiz'));
 	

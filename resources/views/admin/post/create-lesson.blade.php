@@ -1,4 +1,4 @@
-<form class="frm_create_post" method="post" action="{{ action('Admin\PostsController@store',['idparent' => $idparent,'idcrosstype' => $idcrosstype]) }}" onsubmit="return readytextarea()" enctype="multipart/form-data">
+<form class="frm_create_post" method="post" action="{{ action('Admin\PostsController@store',['idparent' => $idparent,'idcrosstype' => $idcrosstype]) }}"  enctype="multipart/form-data">
 	{{ csrf_field() }}
 	<div class="col-md-9 col-xs-12">
 	<div class="form-group">		
