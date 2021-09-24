@@ -106,8 +106,6 @@
 	 
 		<!--extend atribute-->
 	  <div class="ln_solid"></div>
-		
-		
 	</div>
 	<div class="col-md-3 col-xs-12">
 		<div class="form-group row">
